@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <title>PY 101 - Beginners guide to create a python package</title>
+
+    <meta charset='utf-8'>
+    <script
+      src='../slides.js'></script>
+  </head>
+
+  <style>
+    /* Your individual styles here, or just use inline styles if that’s
+       what you want. */
+       body{
+        line-height: 1.5em;
+       }
+
+  </style>
+
+  <body style='display: none'>
+
+    <section class='slides layout-regular'>
+
+      <!-- Your slides (<article>s) go here. Delete or comment out the
+           slides below. -->
+
+
+
+      <article>
+        <h1> PY 101 - Beginners guide to create a python package </h1>
+        <p>
+          <br/> by <a href="http://Kracekumar.com"> Kracekumar </a>
+            @ <a href="http://in.pycon.org/2012"> Pycon India, Sep 30, 2012.</a>
+        </p>
+
+      </article>
+
+      <article>
+        <h1>
+          <pre>
+            $whoami
+            kracekumar
+
+            $jobs | more
+            FOSS guy
+            Contributed to
+            - <a href="https://github.com/ryanmcgrath/twython"> Twython </a>
+            - <a href="https://github.com/kennethreitz/clint"> Clint </a>
+            - <a href="https://github.com/kennethreitz/args"> Args </a>
+            - <a href="https://github.com/mitsuhiko/flask/"> Flask </a>
+            - <a href="https://github.com/kennethreitz/envoy"> Envoy </a>
+            - <a href="https://github.com/kennethreitz/mead"> Mead </a>
+            - <a href="https://github.com/kennethreitz/grequests"> grequests </a>
+
+            <i> --More-- </i>
+          </pre>
+        </h1>
+      </article>
+
+      <article>
+        <h1> What is packing </h1> <br>
+        <p>
+          A way of distributing the software or library in a such a way, user can consume it.
+        </p>
+        <p>
+          <h2> Example: Flask </h2>
+        </p>
+
+      </article>
+
+      <article>
+        <p>
+          <h1> How does a package look like ?</h1>
+          <pre>
+            >>> import os
+            >>> os.listdir('awesomepythonpackage')
+            ['awesomepythonpackage'
+            'docs',
+            'LICENSE',
+            'MANIFEST.in',
+            'README.rst',
+            'setup.py'
+            'tests'
+            ]
+          </pre>
+        </p>
+      </article>
+
+      <article >
+        <h3>
+          What should awesomepythonpackage contain ?
+        </h3>
+        <p>
+          <pre>
+            >>> os.chdir('awesomepythonpackage')
+
+            >>> '__init__.py' in os.listdir('.')
+            >>> True
+
+          </pre>
+          lets look at <a href="https://github.com/mitsuhiko/flask/" target="_blank"> flask </a> source code.
+        </p>
+
+      </article>
+
+      <article>
+        <h2>
+           What is <i> setup.py </i> ?
+        </h2>
+      </article>
+
+      <article>
+        <p>
+          How does <i> setup.py look like</i> ?
+        </p>
+        <pre>
+          from setuptools import setup, find_packages
+          readme = ""
+          setup(
+            name='pycoderwall',
+            version='0.0.7',
+            url='https://github.com/kracekumar/coderwall',
+            license='BSD',
+            author='kracekumar',
+            author_email='me@kracekumar.com',
+            description='CLI for accessing coderwall user details',
+            long_description=readme,
+            packages=find_packages(),
+            install_requires=['requests', 'cement'],
+            entry_points={
+              'console_scripts': [
+              'pycoderwall = coderwall.main:main',
+              ]
+            },
+        </pre>
+      </article>
+
+      <article >
+        <pre>
+          classifiers = [
+            'Development Status :: 4 - Beta',
+            'Environment :: Console',
+            'Intended Audience :: Developers',
+            'Intended Audience :: System Administrators',
+            'License :: OSI Approved :: BSD License',
+            'Operating System :: MacOS :: MacOS X',
+            'Operating System :: Unix',
+            'Operating System :: POSIX',
+            'Programming Language :: Python',
+            'Programming Language :: Python :: 2.5',
+            'Programming Language :: Python :: 2.6',
+            'Topic :: Software Development',
+            'Topic :: Software Development :: Libraries',
+            'Topic :: Software Development :: Libraries :: Python Modules',
+          ],
+         )
+        </pre>
+      </article>
+
+      <article>
+        [tip]
+          <ul>
+            <li> setuptools is not in standard library. </li>
+            <li> Use disutils </li>
+             or
+             <li>
+                <pre>
+                    try:
+                      from setuptools import setup
+                    except ImportError:
+                      from distutils.core import setup
+                </pre>
+              </li>
+          </ul>
+        [/tip]
+      </article>
+
+      <article>
+        <p>
+           Now Upload to Cheese Shop
+        <p><br/>
+        <p>
+          <h2> Cheese Shop ? oh <a href="http://pypi.python.org/pypi"> PyPi </a></h2>
+        </p>
+      </article>
+
+      <article>
+        <h1> Register to PyPi </h1>
+        <ul>
+          <li>
+            <a href="http://pypi.python.org/pypi?%3Aaction=register_form"> http://pypi.python.org/pypi?%3Aaction=register_form </a>
+          </li>
+          <li>
+            create ~/.pypirc file
+            <pre>
+              [distutils]
+              index-servers =
+                 pypi
+              [pypi]
+              username:kracekumar
+              password:##############
+
+            </pre>
+          </li>
+        </ul>
+      </article>
+
+      <article>
+        <pre>
+          $python setup.py register
+          $python setup.py sdist upload
+          running sdist
+          running egg_info
+          ...
+          Submitting dist/pycoderwall-0.0.7a.tar.gz to http://pypi.python.org/pypi
+          Server response (200): OK
+
+          $ echo "try"
+          $ python setup.py bdist_rpm upload
+        </pre>
+      </article>
+
+      <article>
+        <h3>
+          How to install a python package ?
+        </h3>
+        <ul>
+          <li> download the source and  run python setup.py install</li>
+          <li> $pip install pycoderwall</li>
+          <li> $easy_install pycoderwall </li>
+        </ul>
+      </article>
+
+      <article >
+        <h3> Why use Pip ? </h3>
+        <ul>
+          <li> easy_install doesn't provide uninstall option </li>
+          <li> pip works well with virtualenv </li>
+          <li>$ pip install -r requirements.txt </li>
+        </ul>
+      </article>
+
+      <article>
+        <br/>
+        <h1> what is requirements.txt ? </h1>
+      </article>
+
+      <article>
+        <h2> Travis CI </h2>
+      </article>
+
+      <article>
+        <h2> travis.yml </h2>
+        <pre>
+          language: python
+          python:
+            - "2.6"
+            - "2.7"
+          # command to install dependencies
+          install:
+            - pip install -r requirements.txt --use-mirrors
+          # command to run tests
+          script: python runtests.py
+          notifications:
+            email: false
+            irc: "irc.freenode.net#awesomepackage"
+        </pre>
+      </article>
+
+      <article class='nobackground'>
+        <h3>
+          Random Thoughts
+        </h3>
+        <ul>
+          <li> Use absolute version in requirements.txt or setup.py like requests == 0.14.2 </li>
+          <li> If you are so serious about your package ship your dependency </li>
+          <li> Don't define dependency in requirements.txt and setup.py, do it any one place and import in other
+            <pre>
+              REQUIRES = [line.strip() for line in open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'requirements.txt')).readlines()]
+            </pre>
+          </li>
+        </ul>
+
+      </article>
+
+      <article >
+        <h2> Summary </h2>
+        <ul>
+          <li> Python Package layout </li>
+          <li> How to write setup.py </li>
+          <li> PyPi </li>
+          <li> Installing Packages </li>
+          <li> Travis CI </li>
+        </ul>
+
+      </article>
+
+      <article class='fill'>
+        <h1>
+           ?
+        </h1>
+      </article>
+
+      <article>
+        <h3>
+          Thank you!
+        </h3>
+
+        <ul>
+          <li>
+            <a href='http://www.google.com'>google.com</a>
+        </ul>
+      </article>
+
+    </section>
+
+  </body>
+</html>
