@@ -278,7 +278,10 @@
           <li> If you are so serious about your package ship your dependency </li>
           <li> Don't define dependency in requirements.txt and setup.py, do it any one place and import in other
             <pre>
-              REQUIRES = [line.strip() for line in open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'requirements.txt')).readlines()]
+              REQUIRES = [line.strip()
+                for line in open(os.path.join(
+                  os.path.abspath(os.path.dirname(__file__)),
+                 'requirements.txt')).readlines()]
             </pre>
           </li>
         </ul>
@@ -310,7 +313,7 @@
 
         <ul>
           <li>
-            <a href='http://www.google.com'>google.com</a>
+            <a href='https://github.com/kracekumar/mytalks/tree/master/pycon_2012'>Presentation URL</a>
         </ul>
       </article>
 
